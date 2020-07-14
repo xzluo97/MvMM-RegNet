@@ -99,7 +99,7 @@ Some parts of our code were adapted from [VoxelMorph](https://github.com/voxelmo
 
 ## Citation
 
-If you found the repository useful, please cite our work.
+If you found the repository useful, please cite our work as below:
 
 ```
 @article{Luo2020MvMMRegNetAN,
@@ -111,3 +111,6 @@ If you found the repository useful, please cite our work.
 }
 ```
 
+## Contact
+
+For any questions or problems please [open an issue](https://github.com/xzluo97/MvMM-RegNet/issues/new) on GitHub.
