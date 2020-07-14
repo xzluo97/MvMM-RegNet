@@ -1,6 +1,6 @@
 # MvMM-RegNet
 
-
+[[paper](https://arxiv.org/abs/2006.15573)]
 
 >  Implementation of the paper: MvMM-RegNet: A new image registration framework based on multivariate mixture model and neural network estimation, accepted to MICCAI 2020.
 
@@ -31,7 +31,7 @@ MvMM-RegNet
 |-- camera-ready.pdf                    # camera-ready paper
 ```
 
-### Requirement
+### Requirements
 
 Here are the essential modules that you need to install before getting started. Versions are also given for reproducibility.
 
@@ -69,7 +69,7 @@ python train_unified_seg.py
 --epochs 50
 ```
 
-For model testing, the following code shows how to perform inference for pairwise registration on 3D images:
+For model testing, the following code shows how to perform inference for pairwise registration on 3D images as an example:
 
 ```
 python save_prediction_pairwise.py
@@ -78,6 +78,36 @@ python save_prediction_pairwise.py
 --model_path #YOUR OWN CHECKPOINT FILE#
 ```
 
-Some of the parameters are not included in the above illustration. However, one can delve into the running scripts for all the configurations and also for their clear explanation.
+*Note* that some of the parameters are not included in the above illustration. However, one can delve into the running scripts for all the configurations and also for their clear explanation.
 
 ## Reproducibility
+
+In the paper, we tested four variants of the MvMM-RegNet using difference appearance models. The average Dice and Hausdorff distance (HD) statistics for pairwise MR-to-MR registration on MM-WHS dataset ([link](https://zmiclab.github.io/projects/mmwhs/)) are:
+
+| Method        | Dice          | HD (mm)       |
+| ------------- | ------------- | ------------- |
+| Baseline-MoG  | 0.832 ± 0.027 | 19.65 ± 2.792 |
+| Baseline-Mask | 0.840 ± 0.028 | 16.91 ± 2.374 |
+| Baseline-ECC  | 0.844 ± 0.026 | 16.69 ± 2.355 |
+| Baseline-NCC  | 0.847 ± 0.028 | 16.83 ± 2.422 |
+
+The trained TensorFlow model checkpoint files are included in `./src_3d/baselines/`, which can be restored for reproducible experiments.
+
+## Acknowledgement
+
+Some parts of our code were adapted from [VoxelMorph](https://github.com/voxelmorph/voxelmorph/tree/master) and [label-reg](https://github.com/YipengHu/label-reg), which are both excellent repositories for medical image registration.
+
+## Citation
+
+If you found the repository useful, please cite our work.
+
+```
+@article{Luo2020MvMMRegNetAN,
+  title={MvMM-RegNet: A new image registration framework based on multivariate mixture model and neural network estimation},
+  author={Xinzhe Luo and Xiahai Zhuang},
+  journal={ArXiv},
+  year={2020},
+  volume={abs/2006.15573}
+}
+```
+
