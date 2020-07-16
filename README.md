@@ -51,7 +51,7 @@ tqdm==4.42.1
 
 ### Usage
 
-Training the model is through `./src_3d/train_unified_seg.py` for 3D images and `./src_2d/train_unified_seg_2d.py` for 2D images. For example, the following code shows the usage for 3D-training:
+Training the model is through `./src_3d/train_unified_seg.py` for 3D images and `./src_2d/train_unified_seg_2d.py` for 2D images. For example, the following code shows the usage for 3D pairwise registration:
 
 ```
 python train_unified_seg.py
@@ -63,10 +63,10 @@ python train_unified_seg.py
 --cost_function mvmm_net_mask                                       # specify loss function
 --regularization_coefficient 0 0.1 0.1 0.001                        # specify regularization coefficient
 --optimizer_name adam-clr                                           # specify optimizer    
+--epochs 50
 --learning_rate 1e-5
 --dropout 0.2
 --batch_size 1
---epochs 50
 ```
 
 For model testing, the following code shows how to perform inference for pairwise registration on 3D images as an example:
@@ -82,7 +82,7 @@ python save_prediction_pairwise.py
 
 ## Reproducibility
 
-In the paper, we tested four variants of the MvMM-RegNet using difference appearance models. The average Dice and Hausdorff distance (HD) statistics for pairwise MR-to-MR registration on MM-WHS dataset ([link](https://zmiclab.github.io/projects/mmwhs/)) are:
+In the paper, we tested four variants of the MvMM-RegNet using difference appearance models. The average Dice and Hausdorff distance (HD) statistics for pairwise MR-to-MR registration on [MM-WHS](https://zmiclab.github.io/projects/mmwhs/) dataset are:
 
 | Method        | Dice          | HD (mm)       |
 | ------------- | ------------- | ------------- |
@@ -92,6 +92,32 @@ In the paper, we tested four variants of the MvMM-RegNet using difference appear
 | Baseline-NCC  | 0.847 ± 0.028 | 16.83 ± 2.422 |
 
 The trained TensorFlow model checkpoint files are included in `./src_3d/baselines/`, which can be restored for reproducible experiments.
+
+## Groupwise registration
+
+In our paper, we explored a special case of groupwise registration by setting the common space onto a target image as the reference space. This specialization can be viewed as a natural framework for multi-atlas segmentation, during which multiple expert-annotated images with segmented labels, called atlases, are registered to the target space. These warped atlas labels are further combined by label fusion to produce the final segmentation on target image. 
+
+We implemented a 2D version of MvMM-RegNet on [MS-CMRSeg](https://zmiclab.github.io/projects/mscmrseg19/) dataset to investigate deep-learning based groupwise registration. To train the model, one can run  `./src_2d/train_unified_seg_2d.py` using the following code:
+
+```
+python train_unified_seg_2d.py
+--cuda_device 0                                                     # specify GPU ID
+--train_target_search_path #YOUR OWN TRAINING DATASET#              # training target dataset
+--train_atlas_search_path #YOUR OWN TRAINING DATASET#               # training atlas dataset
+--test_target_search_path #YOUR OWN VALIDATION/TEST DATASET#        # validation/test target dataset
+--test_atlas_search_path #YOUR OWN VALIDATION/TEST DATASET#         # validation/test atlas dataset
+--num_atlases 3                                                     # number of atlases in the model
+--cost_function mvmm_net_ncc                                        # specify loss function
+--regularization_coefficient 0 0.1                                  # specify regularization coefficient
+--optimizer_name adam-clr                                           # specify optimizer
+--pretrain_epochs 1                                                 # pretrain the network 
+--epochs 50
+--learning_rate 1e-5
+--dropout 0.2
+--batch_size 4
+```
+
+*Note* that some of the parameters are not included in the above illustration. However, one can delve into the running scripts for all the configurations and also for their clear explanation.
 
 ## Acknowledgement
 
