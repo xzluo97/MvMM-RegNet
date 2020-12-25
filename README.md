@@ -128,12 +128,13 @@ Some parts of our code were adapted from [VoxelMorph](https://github.com/voxelmo
 If you found the repository useful, please cite our work as below:
 
 ```
-@article{Luo2020MvMMRegNetAN,
+@inproceedings{Luo2020MvMM-RegNet,
   title={MvMM-RegNet: A new image registration framework based on multivariate mixture model and neural network estimation},
-  author={Xinzhe Luo and Xiahai Zhuang},
-  journal={ArXiv},
+  author={Luo, Xinzhe and Zhuang, Xiahai},
+  booktitle={International Conference on Medical Image Computing and Computer-Assisted Intervention},
+  pages={149--159},
   year={2020},
-  volume={abs/2006.15573}
+  organization={Springer}
 }
 ```
 
