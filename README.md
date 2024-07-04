@@ -127,7 +127,7 @@ Some parts of our code were adapted from [VoxelMorph](https://github.com/voxelmo
 
 If you found the repository useful, please cite our work as below:
 
-```
+```bibtex
 @inproceedings{Luo2020MvMM-RegNet,
   title={MvMM-RegNet: A new image registration framework based on multivariate mixture model and neural network estimation},
   author={Luo, Xinzhe and Zhuang, Xiahai},
